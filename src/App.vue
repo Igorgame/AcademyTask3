@@ -40,6 +40,6 @@
   display: flex;
   margin: auto;
 
-  background: url('../src/assets/bg.jpg');
+
 }
 </style>
