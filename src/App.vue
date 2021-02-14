@@ -1,17 +1,18 @@
 //шаблон компонента
 <template>
   <div id="app">
-    <h1>ToDo list</h1>
     <hr>
     <router-view />
   </div>
- 
 </template>
 
 
 
 //стили для компонента
 <style>
+html {
+  width: 100%;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -28,18 +29,17 @@
   height: auto;
   padding: 10px;
   position: relative;
-  
+  background-color:burlywood;
 }
 .childlist {
   border: 1px solid black;
-  width: 250px;
+  width: 100%;
   height: auto;
   margin-left: 5px;
+  background-color:burlywood;
 }
 .lists {
   display: flex;
   margin: auto;
-
-
 }
 </style>

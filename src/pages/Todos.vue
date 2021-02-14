@@ -3,6 +3,7 @@
   <div class="container">
     <h1>ToDo list page</h1>
       <router-link to="/">Home Page</router-link>
+      <hr>
       <div class="row lists">
         <div class="col-6 mainlist">
 
@@ -26,10 +27,23 @@
             />
         </div>
 
-        <div class="col-6 childlist"> <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet voluptatem ab, similique maxime obcaecati eveniet voluptatibus, incidunt sed laudantium optio, harum itaque. Sapiente consectetur excepturi laboriosam, corporis a odit unde?Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet voluptatem ab, similique maxime obcaecati eveniet voluptatibus, incidunt sed laudantium optio, harum itaque. Sapiente consectetur excepturi laboriosam, corporis a odit unde?</p></div>
+        <div class="col-6 childlist">
+         <SubList
+            v-if="subtasks.length"
+            v-bind:subtasks ="subtasks"
+            @remove-subtask="removeSubtask"
+            />
+            <p v-else>Taskboard is clear</p>
+
+          <hr>
+            <AddSubtask
+            @add-subtask="addSubtask"
+            />
+        </div>
+          </div>
 
       </div>
-    </div>
+
 </template>
 
 <script>    // экспортируем объект, представляющий весь функционал компонента
@@ -37,12 +51,15 @@
                                           //родительский компонент для того, 
                                           //чтобы им воспользоваться.
   import Addlist from '@/components/Addtodo'  //подключаем Addtodo
+  import SubList from '@/components/Subtasks/SubtaskList'
+  import AddSubtask from '@/components/Subtasks/AddSubtask'
   export default {
     name: 'App',
     data() {  //Хранение данных, относящихся к приложению
       return {  //вернуть обЪект
-        todos:  [],
-        filter: 'all'
+        todos:  [{id: 1, title: 'qwe', completed: false}],
+        filter: 'all',
+        subtasks: [{id: 1, req: false, title: 'qwe1', completed: false, date: 11/10/2000}]
       }
     },
 
@@ -71,12 +88,18 @@
     this.todos = this.todos.filter(t => t.id !== id)
     },
      addTodo(todo) {  //принимаем todo
-    this.todos.push(todo)//обращаемся к массиву и добавляем элемент
+    this.todos.push(todo)
+     },//обращаемся к массиву и добавляем элемент
                         // в конец массива
+    removeSubtask(id) {//удаление элемента
+    this.subtasks = this.subtasks.filter(t => t.id !== id)
+    },
+     AddSubtask(subtask) {  //принимаем subtask
+    this.subtasks.push(subtask)
     }
   },
   components: {
-    ToDoList, Addlist    //регистрация компонентов
+    ToDoList, Addlist, SubList, AddSubtask //регистрация компонентов
   }
 }
 </script>
@@ -87,4 +110,5 @@ p {
   color: #ffffff;
   font-weight:bolder;
 }
+
 </style>
